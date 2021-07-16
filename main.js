@@ -181,8 +181,8 @@ const button = $("#btn");
 const text = $("#tnx > h1:first");
 const image = $("img:first");
 const slider = $("input:first");
-var textIndex = 0;
-var imgIndex = 0;
+var textIndex = 1;
+var imgIndex = 1;
 
 
 text.text(tnx[0]);
