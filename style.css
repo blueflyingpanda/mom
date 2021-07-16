@@ -1,0 +1,130 @@
+body{
+    background-color: #ebbcbb;
+    font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
+}
+
+img{
+    width: 25vh;
+    margin-top: 2vh;
+}
+
+div{
+    margin: auto;
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+#order{
+    color: white;
+}
+
+#description{
+    color: white;
+}
+
+#tnx{
+    color: rgb(42, 42, 42);
+}
+
+button{
+    color: white;
+    background-color: #7A94C7;
+    border: none;
+    padding: 3vh;
+    font-size: larger;
+    font-weight: bolder;
+    border-radius: 5vh;
+    transform: scale(1);
+    -webkit-transition: .2s;
+    transition: .2s;
+}
+
+button:active{
+    background-color: rgb(42, 42, 42);
+    transform: scale(.75);
+    -webkit-transition: .2s;
+    transition: .2s;
+}
+
+/* The switch - the box around the slider */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 10vh;
+    height: 5vh;
+  }
+
+/* Hide default HTML checkbox */
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+/* The slider */
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 6vh;
+    width: 6vh;
+    right: 4.5vh;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+input:checked + .slider {
+    background-color: #7A94C7;
+}
+
+input:checked + .slider:before {
+    -webkit-transform: translateX(5vh);
+    -ms-transform: translateX(5vh);
+    transform: translateX(5vh);
+}
+
+/* Rounded sliders */
+.slider.round {
+    border-radius: 6vh;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+
+@media only screen
+and (min-device-width: 375px)
+and (max-device-width: 667px)
+and (-webkit-min-device-pixel-ratio: 2) {
+    img{
+        width: 25vh;
+    }
+    #order{
+        font-size: 1vh;
+    }
+
+    #description{
+        font-size: 1vh;
+    }
+
+    #tnx{
+        font-size: 1.5vh;
+        width: 90%;
+    }
+}
