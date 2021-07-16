@@ -185,8 +185,8 @@ var textIndex = 0;
 var imgIndex = 0;
 
 
-text.text(tnx[Math.floor(Math.random() * tnx.length)]);
-image.attr("src", "pics/" + Math.floor(Math.random() * imgLen) + ".jpg");
+text.text(tnx[0]);
+image.attr("src", "pics/0.jpg");
 slider.attr("checked", true);
 
 button.click(function() {
