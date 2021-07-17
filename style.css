@@ -6,6 +6,8 @@ body{
 img{
     width: 25vh;
     margin-top: 2vh;
+    position: relative;
+    top: -50vh;
 }
 
 div{

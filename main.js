@@ -183,26 +183,49 @@ const image = $("img:first");
 const slider = $("input:first");
 var textIndex = 1;
 var imgIndex = 1;
+var i = 0;
+var index = 0;
 
 
-text.text(tnx[0]);
+function typing(){
+	if (i < tnx[index].length){
+		text.text(text.text() + tnx[index].charAt(i++));
+		setTimeout(typing, 25);
+	}
+}
+
+function typingWrapper(x){
+    text.text("");
+    index = x
+    i = 0;
+	typing()
+}
+
+typing()
 image.attr("src", "pics/0.jpg");
+image.animate({top: "0vh"}, 1000, "easeInOutQuint");
 slider.attr("checked", true);
 
 button.click(function() {
+    image.animate({top: "-50vh"}, 500, "easeInOutQuint");
+    setTimeout(function(){
+        if (slider.is(":checked")) {
+            imgIndex = 0;
+            image.attr("src", "pics/" + Math.floor(Math.random() * imgLen) + ".jpg");
+        }
+        else {
+            image.attr("src", "pics/" + imgIndex + ".jpg");
+            imgIndex = (imgIndex + 1 == imgLen) ? 0 : imgIndex + 1;
+        }
+    }, 500);
+    image.animate({top: "0vh"}, 500, "easeInOutQuint");
     if (slider.is(":checked")) {
         textIndex = 0;
-        imgIndex = 0;
-        text.text(tnx[Math.floor(Math.random() * tnx.length)]);
-        image.attr("src", "pics/" + Math.floor(Math.random() * imgLen) + ".jpg");
+        typingWrapper(Math.floor(Math.random() * tnx.length))
     }
     else {
-        console.log(imgIndex, textIndex)
-        // console.log(imgIndex, imgIndex == imgLen)
-        text.text(tnx[textIndex]);
-        image.attr("src", "pics/" + imgIndex + ".jpg");
+        typingWrapper(textIndex)
         textIndex = (textIndex + 1 == tnx.length) ? 0 : textIndex + 1;
-        imgIndex = (imgIndex + 1 == imgLen) ? 0 : imgIndex + 1;
     }
 });
 //
