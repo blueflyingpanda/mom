@@ -218,6 +218,7 @@ button.click(function() {
             imgIndex = (imgIndex + 1 == imgLen) ? 0 : imgIndex + 1;
         }
     }, 500);
+    image.animate({top: "-50vh"}, 100, "easeInOutQuint");
     image.animate({top: "0vh"}, 500, "easeInOutQuint");
     if (slider.is(":checked")) {
         textIndex = 0;
