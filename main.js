@@ -180,11 +180,13 @@ const button = $("#btn");
 const text = $("#tnx > h1:first");
 const image = $("img:first");
 const slider = $("input:first");
+const music = document.getElementById("music");
 var textIndex = 0;
 var imgIndex = 0;
 var i = 0;
 var index = 0;
-slider.attr("checked", true);
+var interval;
+// slider.attr("checked", true);
 
 function typing(){
 	if (i < tnx[index].length){
@@ -219,6 +221,28 @@ function replaceImg(){
     image.attr("src", "pics/" + pics[imgIndex]+ ".jpg");
 }
 
+function manageMusic(){
+    if (!slider.is(":checked")){
+        if (music.volume > 0.1){
+            music.volume -= 0.1;
+        }
+        else{
+            music.pause();
+            music.currentTime = 0;
+            clearInterval(interval);
+        }
+    }
+    else {
+        if (music.volume < 0.9){
+            music.volume += 0.1;
+        }
+        else {
+            music.volume = 1;
+            music.play();
+            clearInterval(interval);
+        }
+    }
+}
 
 for (var pics=[],i=0;i<imgLen;++i) pics[i]=i;
 
@@ -229,22 +253,20 @@ image.attr("src", "pics/" + pics[imgIndex]+ ".jpg");
 image.animate({top: "0vh"}, 1000, "easeInOutQuint");
 typingWrapper(textIndex);
 
+slider.click(function() {
+    interval = setInterval(manageMusic, 50)
+});
+
 button.click(function() {
+    image.animate({top: "-50vh"}, 500, "easeInOutQuint");
+    setTimeout(replaceImg, 500);
+    image.animate({top: "-50vh"}, 500, "easeInOutQuint");
+    image.animate({top: "0vh"}, 500, "easeInOutQuint");
     if (++textIndex == tnx.length){
         textIndex = 0;
         tnx = shuffle(tnx);
     }
-    if (slider.is(":checked")){
-        image.animate({top: "-50vh"}, 500, "easeInOutQuint");
-        setTimeout(replaceImg, 500);
-        image.animate({top: "-50vh"}, 500, "easeInOutQuint");
-        image.animate({top: "0vh"}, 500, "easeInOutQuint");
-        typingWrapper(textIndex);
-    }
-    else {
-        replaceImg();
-        text.text(tnx[textIndex]);
-    }
+    typingWrapper(textIndex);
 });
 //
 });
