@@ -1,4 +1,4 @@
-const tnx = [
+var tnx = [
     "Спасибо за самые лучшие игрушки на Новый Год и День Рождения",
     "Спасибо за кукольный домик из тетрадки",
     "Спасибо за то, что у меня есть собака 🦮",
@@ -180,11 +180,11 @@ const button = $("#btn");
 const text = $("#tnx > h1:first");
 const image = $("img:first");
 const slider = $("input:first");
-var textIndex = 1;
-var imgIndex = 1;
+var textIndex = 0;
+var imgIndex = 0;
 var i = 0;
 var index = 0;
-
+slider.attr("checked", true);
 
 function typing(){
 	if (i < tnx[index].length){
@@ -200,32 +200,50 @@ function typingWrapper(x){
 	typing()
 }
 
-typing()
-image.attr("src", "pics/0.jpg");
+function shuffle(array) {
+    var tmp, current, top = array.length;
+    if(top) while(--top) {
+      current = Math.floor(Math.random() * (top + 1));
+      tmp = array[current];
+      array[current] = array[top];
+      array[top] = tmp;
+    }
+    return array;
+}
+
+function replaceImg(){
+    if (++imgIndex == imgLen){
+        imgIndex = 0;
+        pics = shuffle(pics);
+    }
+    image.attr("src", "pics/" + pics[imgIndex]+ ".jpg");
+}
+
+
+for (var pics=[],i=0;i<imgLen;++i) pics[i]=i;
+
+pics = shuffle(pics);
+tnx = shuffle(tnx);
+
+image.attr("src", "pics/" + pics[imgIndex]+ ".jpg");
 image.animate({top: "0vh"}, 1000, "easeInOutQuint");
-slider.attr("checked", true);
+typingWrapper(textIndex);
 
 button.click(function() {
-    image.animate({top: "-50vh"}, 500, "easeInOutQuint");
-    setTimeout(function(){
-        if (slider.is(":checked")) {
-            imgIndex = 0;
-            image.attr("src", "pics/" + Math.floor(Math.random() * imgLen) + ".jpg");
-        }
-        else {
-            image.attr("src", "pics/" + imgIndex + ".jpg");
-            imgIndex = (imgIndex + 1 == imgLen) ? 0 : imgIndex + 1;
-        }
-    }, 500);
-    image.animate({top: "-50vh"}, 500, "easeInOutQuint");
-    image.animate({top: "0vh"}, 500, "easeInOutQuint");
-    if (slider.is(":checked")) {
+    if (++textIndex == tnx.length){
         textIndex = 0;
-        typingWrapper(Math.floor(Math.random() * tnx.length))
+        tnx = shuffle(tnx);
+    }
+    if (slider.is(":checked")){
+        image.animate({top: "-50vh"}, 500, "easeInOutQuint");
+        setTimeout(replaceImg, 500);
+        image.animate({top: "-50vh"}, 500, "easeInOutQuint");
+        image.animate({top: "0vh"}, 500, "easeInOutQuint");
+        typingWrapper(textIndex);
     }
     else {
-        typingWrapper(textIndex)
-        textIndex = (textIndex + 1 == tnx.length) ? 0 : textIndex + 1;
+        replaceImg();
+        text.text(tnx[textIndex]);
     }
 });
 //
